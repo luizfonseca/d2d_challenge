@@ -1,0 +1,11 @@
+{
+  "name": "d2d_challenge",
+  "version": "1.0.0",
+  "description": "Challenge for Door2Door",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luiz Fonseca <eu@luiz.cc>",
+  "license": "MIT"
+}
