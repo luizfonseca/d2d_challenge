@@ -11,6 +11,7 @@ module.exports = (app) => {
 
 
   app.route('/vehicles')
+    .get(vehicleCtrl.vehicle_list)
     .post(vehicleCtrl.vehicle_registration)
 
 }

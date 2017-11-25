@@ -21,8 +21,6 @@ const VehicleSchema =  new Schema({
     default: 'active'
 
   }
-
-
 })
 
 
