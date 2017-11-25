@@ -1,10 +1,9 @@
 // Specs for the Vehicle Registration/Listing controller
-const mongoose = require('mongoose');
-
-const request = require('supertest');
-const Vehicle = require('../../api/models/vehicleModel')
-const vehicleCtrl = require('../../api/controllers/vehicleController');
-const app = require('../../app');
+let mongoose = require('mongoose');
+let request = require('supertest');
+let Vehicle = require('../../api/models/vehicleModel')
+let vehicleCtrl = require('../../api/controllers/vehicleController');
+let app = require('../../app');
 
 mongoose.connect('mongodb://localhost/d2dchallenge_test', { useMongoClient: true });
 Vehicle.remove({})

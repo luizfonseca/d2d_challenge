@@ -1,15 +1,16 @@
 // See: specs/controllers
-
 'use strict';
 
 
-const mongoose = require('mongoose'),
+let mongoose = require('mongoose'),
   Vehicle = mongoose.model('Vehicles');
 
-
-// Wasnt required, but I found it usefull to know all
-// active Vehicles
-// PS: '-id -__v' => I am excluding fields using the '-' symbol.
+/**
+  * GET /vehicles
+  * Wasnt required, but I found it usefull to know all
+  * active Vehicles
+  * PS: '-id -__v' => I am excluding fields using the '-' symbol.
+**/
 exports.vehicle_list = (req, res) => {
   Vehicle.find({}, '-_id -__v', (err, vehicle) => {
 
@@ -19,10 +20,12 @@ exports.vehicle_list = (req, res) => {
   })
 }
 
-// POST /vehicles
-// This method simply creates OR activate one Vehicle by using his ID
-// And by default, they are all 'active' on creation
-// unless DELETE happens
+/**
+  * POST /vehicles
+  * This method simply creates OR activate one Vehicle by using his ID
+  * And by default, they are all 'active' on creation
+  * unless HTTP DELETE is sent
+**/
 exports.vehicle_registration = (req, res) => {
   console.log(req.body)
   var new_vehicle = new Vehicle(req.body);

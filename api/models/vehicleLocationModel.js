@@ -12,17 +12,20 @@ const VehicleLocationSchema = new Schema({
     required: "You need an Vehicle UUID"
   },
 
-  latitude: {
+  lat: {
     type: Number,
     required: "Latitude is required"
   },
 
-  longitude: {
+  lng: {
     type: Number,
     required: "Longitude is required"
+  },
+
+  at: {
+    type: Date,
+    require: "Timestamp of the Location is required"
   }
-
-
 })
 
 
