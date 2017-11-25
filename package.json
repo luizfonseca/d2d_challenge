@@ -4,12 +4,25 @@
   "description": "Challenge for Door2Door",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest spec/ --verbose",
+    "start": "nodemon server.js"
   },
   "author": "Luiz Fonseca <eu@luiz.cc>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^4.13.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "jest": "^21.2.1",
+    "nodemon": "^1.12.1",
+    "superagent": "^3.8.1",
+    "supertest": "^3.0.0"
   }
 }
