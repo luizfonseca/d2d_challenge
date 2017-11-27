@@ -32,20 +32,8 @@ exports.vehicle_registration = (req, res) => {
   // Finding existing Vehicles
   // If found, we just update his status to active
   // Otherwise, we create it
-  Vehicle.findOne({ id: req.body.id }, (err, vehicle) => {
-
-    if (vehicle) {
-      // Existing vehicle? Just activate it
-      var vehicleObject = vehicle.set({ status: 'active' })
-
-    } else {
-      // New vehicle? Create it
-      var vehicleObject = new Vehicle(req.body);
-    }
-
-
-    // See:  Function[] save_vehicle
-    save_vehicle(vehicleObject, res);
+  Vehicle.findOrCreate(req.body, { status: 'active' }, (err, vehicle, created) => {
+    render_body(err, res)
   })
 }
 
@@ -54,22 +42,11 @@ exports.vehicle_registration = (req, res) => {
 // This function just make one of the Vehicles inactive
 // If found
 exports.vehicle_deletion = (req, res) => {
-  Vehicle.findOneAndUpdate({ id: req.params.id }, { status: 'inactive' },  (err, vehicle) => {
+  Vehicle.findOneAndUpdate(req.params, { status: 'inactive' },  (err, vehicle) => {
     render_body(err, res)
   })
 
 
-}
-
-
-
-
-// Small abstraction so we dont need to return/call
-// function more than once
-let save_vehicle = (vh, res) => {
-  vh.save((err, vehicle) => {
-    render_body(err, res)
-  })
 }
 
 // Just returns 400 or 204 depending on Resources
