@@ -28,32 +28,35 @@ exports.vehicle_list = (req, res) => {
 * unless HTTP DELETE is sent
 **/
 exports.vehicle_registration = (req, res) => {
-  console.log(req.body)
+
+  // Finding existing Vehicles
+  // If found, we just update his status to active
+  // Otherwise, we create it
   Vehicle.findOne({ id: req.body.id }, (err, vehicle) => {
-    console.log(vehicle)
+
     if (vehicle) {
-      vehicle.set({ status: 'active' })
-      save_vehicle(vehicle, res);
+      var vehicleObject = vehicle.set({ status: 'active' })
 
     } else {
-      var new_vehicle = new Vehicle(req.body);
-      // Try to save
-      // If fail: HTTP 400 (bad request)
-      // If success: HTTP 204 (No content, success)
-      save_vehicle(new_vehicle, res);
-
+      var vehicleObject = new Vehicle(req.body);
     }
+
+    save_vehicle(vehicleObject, res);
   })
 
 
 }
 
-
+// Avoiding repeating the same
+// method call if we are using the same logic
 let save_vehicle = (vh, res) => {
   vh.save((err, vehicle) => {
     var status = err ? 400 : 204,
     body = err || null
 
+    // Try to save
+    // If fail: HTTP 400 (bad request)
+    // If success: HTTP 204 (No content, success)
     res.status(status).send(body)
   })
 }

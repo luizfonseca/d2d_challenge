@@ -4,7 +4,7 @@
   "description": "Challenge for Door2Door",
   "main": "server.js",
   "scripts": {
-    "test": "jest spec/ --verbose",
+    "test": "jest spec/ --verbose --forceExit",
     "start": "nodemon server.js"
   },
   "author": "Luiz Fonseca <eu@luiz.cc>",
