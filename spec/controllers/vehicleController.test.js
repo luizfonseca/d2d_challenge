@@ -7,8 +7,24 @@ let app = require('../../app');
 
 mongoose.connect('mongodb://localhost/d2dchallenge_test', { useMongoClient: true });
 
+// GET /vehicles
+describe(">> GET /vehicles", () => {
+
+  test("should see a list of active vehicles", () => {
+    var data   = { id: "one" }
+    Vehicle.findOrCreate(data, (err, vehicle, created) => {})
+
+    return request(app).get('/vehicles').then((response) => {
+      expect(response.statusCode).toBe(200)
+      expect(JSON.stringify(response.body)).toMatch('\"id\":\"one\"')
+    })
+  })
+})
+
+
+
 // POST /vehicles
-describe("Vehicle Registration", () => {
+describe(">> POST /vehicles", () => {
 
   test('should return HTTP 204 if the data being sent is valid', () => {
     // Valid data (id)
@@ -50,25 +66,10 @@ describe("Vehicle Registration", () => {
 
 
 
-// GET /vehicles
-describe("Vehicle Listing", () => {
-
-  test("should see a list of active vehicles", () => {
-    var data   = { id: "one" }
-    Vehicle.findOrCreate(data, (err, vehicle, created) => {})
-
-    return request(app).get('/vehicles').then((response) => {
-      expect(response.statusCode).toBe(200)
-      expect(JSON.stringify(response.body)).toMatch('\"id\":\"one\"')
-    })
-  })
-})
-
-
 
 
 // DELETE /vehicles/:id
-describe("Vehicle Deletion/Deactivation", () => {
+describe(">> DELETE /vehicles/:id", () => {
 
   test("should deactivate an item if a valid ID is given", (done) => {
     var data = { id: "id_inactive" }
