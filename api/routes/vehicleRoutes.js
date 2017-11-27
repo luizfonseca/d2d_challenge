@@ -2,16 +2,16 @@
 
 
 module.exports = (app) => {
-  const vehicleCtrl = require('../controllers/vehicleController.js');
+  let vehicleCtrl = require('../controllers/vehicleController.js');
 
+  // Root path
   app.route('/')
     .get((req, res) => {
       res.status(200).send('VehicleLocation Running')
     })
 
-
+  // Resources for Vehicles
   app.route('/vehicles')
     .get(vehicleCtrl.vehicle_list)
     .post(vehicleCtrl.vehicle_registration)
-
 }

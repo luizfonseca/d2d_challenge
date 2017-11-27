@@ -9,7 +9,6 @@ const Schema    = mongoose.Schema;
 const VehicleSchema =  new Schema({
   id: {
     type: String,
-    default: "",
     required: "An UUID is required"
   },
 

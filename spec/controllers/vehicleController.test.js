@@ -6,12 +6,13 @@ let vehicleCtrl = require('../../api/controllers/vehicleController');
 let app = require('../../app');
 
 mongoose.connect('mongodb://localhost/d2dchallenge_test', { useMongoClient: true });
-Vehicle.remove({})
-
-
+Vehicle.find({}, (err, vehicles) => {
+  console.log(vehicles)
+})
+// POST /vehicles
 describe("Vehicle Registration", () => {
 
-  test('should return HTTP 204 and increase if the data being sent is valid', (done) => {
+  test('should return HTTP 204 if the data being sent is valid', (done) => {
     // Valid data (id)
     var bodyReq = { id: "SampleID" }
 
@@ -37,16 +38,29 @@ describe("Vehicle Registration", () => {
 
   })
 
+
+
+  test('should not create the same Vehicle twice', (done) => {
+    var bodyReq = { id: "niceID" }
+    var existing_vehicle = Vehicle(bodyReq).update()
+
+    request(app).post('/vehicles').send(bodyReq).then((response) => {
+      Vehicle.count({ id: "niceID" }, (err, count) => {
+        expect(count).toBe(1)
+        done()
+      })
+    })
+  })
 })
 
 
 
-
+// GET /vehicles
 describe("Vehicle Listing", () => {
 
   test("should see a list of active vehicles", (done) => {
-    var data   = [{ id: "one" }]
-    var sample = new Vehicle(data).save((err) => { });
+    var data   = { id: "one" }
+    var sample = new Vehicle(data).save();
 
     request(app).get('/vehicles').then((response) => {
       expect(response.statusCode).toBe(200)
@@ -54,6 +68,4 @@ describe("Vehicle Listing", () => {
       done()
     })
   })
-
-
 })
