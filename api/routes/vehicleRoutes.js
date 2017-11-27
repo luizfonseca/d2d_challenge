@@ -14,4 +14,9 @@ module.exports = (app) => {
   app.route('/vehicles')
     .get(vehicleCtrl.vehicle_list)
     .post(vehicleCtrl.vehicle_registration)
+
+
+  // Resources for Vehicles/:id
+  app.route('/vehicles/:id')
+    .delete(vehicleCtrl.vehicle_deletion)
 }

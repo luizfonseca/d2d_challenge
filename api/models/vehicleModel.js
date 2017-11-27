@@ -1,6 +1,6 @@
 'use strict';
 
-
+const findOrCreate = require('mongoose-findorcreate')
 const mongoose  = require('mongoose');
 const Schema    = mongoose.Schema;
 
@@ -22,5 +22,6 @@ const VehicleSchema =  new Schema({
   }
 })
 
+VehicleSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model('Vehicles', VehicleSchema);

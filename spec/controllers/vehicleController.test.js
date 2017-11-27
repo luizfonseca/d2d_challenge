@@ -38,7 +38,7 @@ describe("Vehicle Registration", () => {
 
   test('should not create the same Vehicle twice', () => {
     var bodyReq = { id: "niceID" }
-    var existing_vehicle = Vehicle(bodyReq).update()
+    var existing_vehicle = Vehicle.findOrCreate(bodyReq, (err, vehicle, created) => {})
 
     return request(app).post('/vehicles').send(bodyReq).then((response) => {
       Vehicle.count({ id: "niceID" }, (err, count) => {
@@ -55,11 +55,33 @@ describe("Vehicle Listing", () => {
 
   test("should see a list of active vehicles", () => {
     var data   = { id: "one" }
-    var sample = new Vehicle(data).update();
+    var existing_vehicle = Vehicle.findOrCreate(data, (err, vehicle, created) => {})
 
     return request(app).get('/vehicles').then((response) => {
       expect(response.statusCode).toBe(200)
       expect(JSON.stringify(response.body)).toMatch('\"id\":\"one\"')
     })
   })
+})
+
+
+
+
+// DELETE /vehicles/:id
+describe("Vehicle Deletion/Deactivation", () => {
+
+  test("should deactivate an item if a valid ID is given", (done) => {
+    var data = { id: "id_inactive" }
+    var sample = Vehicle.findOrCreate(data, (err, vehicle, created) => {})
+
+
+    request(app).delete('/vehicles/id_inactive').then((response) => {
+      expect(response.statusCode).toBe(204)
+      Vehicle.findOne({ id: 'id_inactive' }, (err, vehicle) => {
+        expect(vehicle.status[0]).toBe("inactive")
+        done()
+      })
+    })
+  })
+
 })
