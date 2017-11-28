@@ -12,7 +12,7 @@ let mongoose = require('mongoose'),
 exports.location_registration = (req, res) => {
 
   Vehicle.findOne(req.params, (err, vehicle) => {
-    if (vehicle) {
+    if (vehicle && vehicle.status == 'active') {
       // Merging the Body data with the request
       // Using the ES6 "extend" option.
 
@@ -23,6 +23,8 @@ exports.location_registration = (req, res) => {
         }
         res.status(204).send(null)
       })
+    } else {
+      res.status(400).send(null)
     }
   })
 
