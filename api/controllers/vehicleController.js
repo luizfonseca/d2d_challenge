@@ -28,13 +28,19 @@ exports.vehicle_list = (req, res) => {
 * unless HTTP DELETE is sent
 **/
 exports.vehicle_registration = (req, res) => {
+  if (req.body.id === undefined) {
+    return render_body("Missing required fields", res)
 
-  // Finding existing Vehicles
-  // If found, we just update his status to active
-  // Otherwise, we create it
-  Vehicle.findOrCreate(req.body, { status: 'active' }, (err, vehicle, created) => {
-    render_body(err, res)
-  })
+  } else {
+    // Finding existing Vehicles
+    // If found, we just update his status to active
+    // Otherwise, we create it
+    Vehicle.findOrCreate({ id: req.body.id }, (err, vehicle, created) => {
+      if (!created) { vehicle.set({status: 'active'}).save() };
+
+      return render_body(err, res)
+    })
+  }
 }
 
 
@@ -42,7 +48,7 @@ exports.vehicle_registration = (req, res) => {
 // This function just make one of the Vehicles inactive
 // If found
 exports.vehicle_deletion = (req, res) => {
-  Vehicle.findOneAndUpdate(req.params, { status: 'inactive' },  (err, vehicle) => {
+  Vehicle.findOneAndUpdate({ id: req.params.id }, { status: 'inactive' },  (err, vehicle) => {
     render_body(err, res)
   })
 
@@ -58,5 +64,5 @@ let render_body = (err, res) => {
   // Try to save
   // If fail: HTTP 400 (bad request)
   // If success: HTTP 204 (No content, success)
-  res.status(status).send(body)
+  return res.status(status).send(body)
 }

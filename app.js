@@ -1,9 +1,9 @@
 //app.js
 const express = require('express'),
-  app = express(),
-  bodyParser = require('body-parser'),
-  mongoose = require('mongoose'),
-  Vehicle = require('./api/models/vehicleModel'),
+  app         = express(),
+  bodyParser  = require('body-parser'),
+  mongoose    = require('mongoose'),
+  Vehicle     = require('./api/models/vehicleModel'),
   VehicleLocation = require('./api/models/vehicleLocationModel');
 
 

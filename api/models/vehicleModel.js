@@ -1,15 +1,18 @@
 'use strict';
 
-const findOrCreate = require('mongoose-findorcreate')
-const mongoose  = require('mongoose');
-const Schema    = mongoose.Schema;
+let findOrCreate = require('mongoose-findorcreate')
+let uniqueValidator = require('mongoose-unique-validator')
+let mongoose  = require('mongoose');
+let Schema    = mongoose.Schema;
 
 
 
 const VehicleSchema =  new Schema({
   id: {
     type: String,
-    required: "An UUID is required"
+    required: "Missing UUID",
+    unique: true,
+    dropDups: true
   },
 
   status: {
@@ -23,5 +26,7 @@ const VehicleSchema =  new Schema({
 })
 
 VehicleSchema.plugin(findOrCreate);
+VehicleSchema.plugin(uniqueValidator);
+
 
 module.exports = mongoose.model('Vehicles', VehicleSchema);

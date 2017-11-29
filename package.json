@@ -14,7 +14,8 @@
     "express": "^4.16.2",
     "mongoose": "^4.13.5",
     "mongoose-findorcreate": "^2.0.0",
-    "mongoose-hidden": "^1.5.0"
+    "mongoose-hidden": "^1.5.0",
+    "mongoose-unique-validator": "^1.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
