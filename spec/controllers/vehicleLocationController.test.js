@@ -53,3 +53,20 @@ describe(">> POST /vehicles/:id/locations", () => {
     })
   })
 })
+
+
+
+describe('.isInOfficeBoundary', () => {
+
+  test('Should return true if the Vehicle is close to the office perimeter', () => {
+    var lat = 52.52, lng = 13.450;
+
+    expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
+  })
+
+
+  test('should return false if the Vehicle is not on the office perimeter (3,5KM)', () => {
+    var lat = 52.45, lng = 13.400;
+    expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(false)
+  })
+})
