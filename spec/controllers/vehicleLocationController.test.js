@@ -31,10 +31,7 @@ describe(">> POST /vehicles/:id/locations", () => {
           done()
         })
       })
-
     })
-
-
   })
 
 
@@ -43,7 +40,6 @@ describe(">> POST /vehicles/:id/locations", () => {
       expect(response.statusCode).toBe(400)
       done()
     })
-
   })
 
 
