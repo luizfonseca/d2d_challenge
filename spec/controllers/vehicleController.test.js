@@ -18,13 +18,11 @@ describe(">> GET /vehicles", () => {
     var data   = { id: "one" }
     Vehicle.findOrCreate(data, (err, vehicle, created) => {
 
-    request(app).get('/vehicles').then((response) => {
-      expect(JSON.stringify(response.body)).toMatch('\"id\":\"one\"')
-      done()
+      request(app).get('/vehicles').then((response) => {
+        expect(JSON.stringify(response.body)).toMatch('\"id\":\"one\"')
+        done()
+      })
     })
-
-    })
-
   })
 })
 
@@ -44,7 +42,6 @@ describe(">> POST /vehicles", () => {
       expect(response.statusCode).toBe(204)
       done()
     })
-
   })
 
 
@@ -56,7 +53,6 @@ describe(">> POST /vehicles", () => {
       expect(response.statusCode).toBe(400)
       done()
     })
-
   })
 
 
@@ -66,16 +62,13 @@ describe(">> POST /vehicles", () => {
     Vehicle.findOrCreate(bodyReq, (err, vehicle) => {
 
 
-    request(app).post('/vehicles').send(bodyReq).then((response) => {
-      Vehicle.count({ id: "niceID" }, (err, count) => {
-        expect(count).toBe(1)
-        done()
+      request(app).post('/vehicles').send(bodyReq).then((response) => {
+        Vehicle.count({ id: "niceID" }, (err, count) => {
+          expect(count).toBe(1)
+          done()
+        })
       })
     })
-
-
-    })
-
   })
 })
 
@@ -89,19 +82,14 @@ describe(">> DELETE /vehicles/:id", () => {
   test("should deactivate an item if a valid ID is given", (done) => {
     var data = { id: "id_inactive" }
     Vehicle.findOrCreate(data, (err, vehicle, created) => {
-request(app).delete('/vehicles/id_inactive').then((response) => {
-      expect(response.statusCode).toBe(204)
+      request(app).delete('/vehicles/id_inactive').then((response) => {
+        expect(response.statusCode).toBe(204)
 
-      Vehicle.findOne({ id: 'id_inactive' }, (err, vehicle) => {
-        expect(vehicle.status[0]).toBe("inactive")
-        done()
+        Vehicle.findOne({ id: 'id_inactive' }, (err, vehicle) => {
+          expect(vehicle.status[0]).toBe("inactive")
+          done()
+        })
       })
     })
-
-
-    })
-
-
-
   })
 })

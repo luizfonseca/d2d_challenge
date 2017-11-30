@@ -3,7 +3,7 @@
 
 
 let mongoose = require('mongoose'),
-Vehicle = mongoose.model('Vehicles');
+    Vehicle = mongoose.model('Vehicles');
 
 /**
 * GET /vehicles
@@ -12,7 +12,7 @@ Vehicle = mongoose.model('Vehicles');
 * '-id -__v' => I am excluding fields using the '-' (subtract) symbol.
 **/
 exports.vehicle_list = (req, res) => {
-  Vehicle.find({}, '-_id -__v', (err, vehicle) => {
+  Vehicle.find({ status: 'active' }, '-_id -__v', (err, vehicle) => {
 
     if (err) {
       res.send(err)
