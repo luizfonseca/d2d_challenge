@@ -1,5 +1,6 @@
 'use strict';
 
+let path    = require("path");
 
 module.exports = (app) => {
   let vehicleCtrl = require('../controllers/vehicleController.js');
@@ -8,7 +9,7 @@ module.exports = (app) => {
   // Root path
   app.route('/')
   .get((req, res) => {
-    res.status(200).send('VehicleLocation Running')
+    res.status(200).sendFile((path.join(`${__dirname}/../../public/index.html`)))
   })
 
   // Resources for Vehicles
