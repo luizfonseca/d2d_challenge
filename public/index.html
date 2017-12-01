@@ -3,15 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Door2Door Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
   </head>
   <body>
 
 
-    <h1>Endpoints</h1>
 
-
-    <p><code>GET /vehicles</code> - A list of all 'active' vehicles</p>
-    <p><code>POST /vehicles</code> - Activate or Create a new vehicles</p>
-
+    <div class="section">
+      <div class="column">
+        <h1 class="is-size-2 has-text-weight-bold">API Endpoints</h1>
+        <p><code>GET /vehicles</code> - A list of all 'active' vehicles</p>
+        <p><code>POST /vehicles</code> - Activate or Create a new Vehicle</p>
+        <p><code>POST /vehicles/:id/locations</code> - Add new Location data to Vehicle</p>
+        <p><code>DELETE /vehicles/:id</code> - Deactivate a Vehicle</p>
+      </div>
+    </div>
   </body>
 </html>
