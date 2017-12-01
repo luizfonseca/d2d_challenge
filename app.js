@@ -1,6 +1,7 @@
 //app.js
 const express = require('express'),
   app         = express(),
+  cors        = require('cors'),
   bodyParser  = require('body-parser'),
   mongoose    = require('mongoose'),
   Vehicle     = require('./api/models/vehicleModel'),
@@ -19,14 +20,12 @@ mongoose.connect(mongoURI, { useMongoClient: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Enabling CORS for all requests
+app.use(cors({ preflightContinue: true,  optionsSuccessStatus: 200 }))
+app.options('*', cors())
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-const routes = require('./api/routes/vehicleRoutes'); //importing route
+let routes = require('./api/routes/vehicleRoutes'); //importing route
 routes(app);
+
 
 module.exports = app

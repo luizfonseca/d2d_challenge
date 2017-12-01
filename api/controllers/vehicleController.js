@@ -12,13 +12,18 @@ let mongoose = require('mongoose'),
 * '-id -__v' => I am excluding fields using the '-' (subtract) symbol.
 **/
 exports.vehicle_list = (req, res) => {
-  Vehicle.find({ status: 'active' }, '-_id -__v', (err, vehicle) => {
-
-    if (err) {
-      res.send(err)
-    }
-    res.json(vehicle)
-  })
+  Vehicle.find({ status: 'active' }, '-_id -__v')
+    .populate({
+        path: 'locations',
+        options: { limit: 1, sort: { 'at': - 1} },
+        select: 'lat lng at -_id -vehicle_id'
+    })
+    .exec((err, vehicles) => {
+      if (err) {
+        res.send(err)
+      }
+      res.json(vehicles)
+    })
 }
 
 /**

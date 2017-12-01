@@ -7,7 +7,7 @@ let Schema    = mongoose.Schema;
 
 
 
-const VehicleSchema =  new Schema({
+let VehicleSchema =  new Schema({
   id: {
     type: String,
     required: "Missing UUID",
@@ -21,9 +21,18 @@ const VehicleSchema =  new Schema({
       enum: ['active', 'inactive']
     }],
     default: 'active'
-
   }
+},  { toJSON: { virtuals: true } })
+
+
+VehicleSchema.virtual('locations', {
+  ref: 'VehicleLocations',
+  localField: 'id',
+  foreignField: 'vehicle_id',
+  justOne: false
+
 })
+
 
 VehicleSchema.plugin(findOrCreate);
 VehicleSchema.plugin(uniqueValidator);
