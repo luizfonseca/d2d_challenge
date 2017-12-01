@@ -1,6 +1,6 @@
 # Door2Door Challenge
 
-Running at: http://d2dchallengeapi.herokuapp.com
+Running at: http://door2door-vehicles.herokuapp.com
 
 
 ## Setup
