@@ -8,8 +8,14 @@ const express = require('express'),
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/d2dchallenge', { useMongoClient: true });
 
+// Change process.env.MONGODB_URI to
+// your environment variable if needed
+let mongoURI = process.env.MONGODB_URI || "mongodb://localhost/d2dchallenge"
+mongoose.connect(mongoURI, { useMongoClient: true });
+
+// Body Parser is needed because Express doesn't come
+// with it anymore
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
