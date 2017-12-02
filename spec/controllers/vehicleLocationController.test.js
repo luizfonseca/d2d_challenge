@@ -35,8 +35,22 @@ describe(">> POST /vehicles/:id/locations", () => {
   })
 
 
+  test('should say if the location is on boundary or not', (done) => {
+    var bodyReq = { "lat": 22.0, "lng": 20.0, "at": "2017-09-01T12:00:00Z" }
+
+    request(app).post('/vehicles/abc123/locations').send(bodyReq).then((response) => {
+      expect(response.statusCode).toBe(204)
+      VehicleLocation.findOne({ vehicle_id: "abc123" }, (err, location) => {
+        expect(location.on_boundary).toBe(false)
+        done()
+      })
+    })
+
+  })
+
+
   test('should throw error if required fields are missing', (done) => {
-    request(app).post('/vehicles/abc123/locations').send({ lat: '', lng: ''}).then((response) => {
+    request(app).post('/vehicles/abc123/locations').send({ 'lat': null, 'lng': ''}).then((response) => {
       expect(response.statusCode).toBe(400)
       done()
     })

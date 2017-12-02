@@ -10,7 +10,7 @@ let mongoose  = require('mongoose'),
 
 
 // POST /vehicles/:id/locations
-exports.location_registration = (req, res) => {
+let location_registration = (req, res) => {
 
   //isInOfficeBoundary(req.body.lat, req.body.lng)
 
@@ -19,18 +19,20 @@ exports.location_registration = (req, res) => {
       // Merging the Body data with the request
       // Using the ES6 "extend" option.
 
-      var calcBoundary  = isInOfficeBoundary(req.body.lat, req.body.lng)
-      var mergeData     = Object.assign(req.body, { vehicle_id: vehicle.id, on_boundary: calcBoundary })
+      if (req.body.lat && req.body.lng) {
+        var calcBoundary  = isInOfficeBoundary(req.body.lat, req.body.lng)
+      }
+      var mergeData     = Object.assign(req.body, { vehicle_id: vehicle.id, on_boundary: (calcBoundary && false) })
 
       // TODO: refactor this part to a more readable way.
       VehicleLocation.create(mergeData, (err, location) => {
         if (err) {
-          return res.status(400).send(err)
+          return res.status(400).json(err)
         }
-        res.status(204).send(null)
+        res.status(204).json(null)
       })
     } else {
-      res.status(400).send(null)
+      res.status(400).json(null)
     }
   })
 
@@ -60,6 +62,7 @@ let isInOfficeBoundary = (vehicleLat, vehicleLng) => {
   // Check if its at least 3,5KM or 3500 mts from office position
   return (distanceInMeters <= 3500)
 
-
-
 }
+
+
+module.exports = { isInOfficeBoundary, location_registration }

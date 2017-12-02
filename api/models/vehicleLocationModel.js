@@ -24,11 +24,12 @@ const VehicleLocationSchema = new Schema({
 
   at: {
     type: Date,
-    require: "Timestamp of the Location is required"
+    required: "Timestamp of the Location is required"
   },
 
   on_boundary: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 })
 
