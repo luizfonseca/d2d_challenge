@@ -1,0 +1,3 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/luizfonseca/d2d_challenge_view.git
