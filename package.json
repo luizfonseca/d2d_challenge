@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest spec/ --verbose --forceExit",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js --verbose --debug"
   },
   "author": "Luiz Fonseca <eu@luiz.cc>",
   "license": "MIT",

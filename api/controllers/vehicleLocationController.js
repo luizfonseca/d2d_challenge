@@ -19,7 +19,8 @@ exports.location_registration = (req, res) => {
       // Merging the Body data with the request
       // Using the ES6 "extend" option.
 
-      var mergeData = Object.assign(req.body, { vehicle_id: vehicle.id })
+      var calcBoundary  = isInOfficeBoundary(req.body.lat, req.body.lng)
+      var mergeData     = Object.assign(req.body, { vehicle_id: vehicle.id, on_boundary: calcBoundary })
 
       // TODO: refactor this part to a more readable way.
       VehicleLocation.create(mergeData, (err, location) => {
@@ -40,7 +41,7 @@ exports.location_registration = (req, res) => {
 // Method that check if the point being sent from the
 // vehicle is still on city boundaries.
 // Return true or false
-exports.isInOfficeBoundary = (vehicleLat, vehicleLng) => {
+let isInOfficeBoundary = (vehicleLat, vehicleLng) => {
   let officeLat = 52.53,
       officeLng = 13.403;
 
