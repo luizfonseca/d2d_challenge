@@ -1,7 +1,7 @@
 # Door2Door Challenge
 
-API running: http://door2door-vehicles.herokuapp.com/
-Client running: https://door2door-viewer.herokuapp.com/
+- API running: http://door2door-vehicles.herokuapp.com/
+- Client running: https://door2door-viewer.herokuapp.com/
 
 
 ## Instructions
@@ -9,14 +9,15 @@ Client running: https://door2door-viewer.herokuapp.com/
 This project uses submodules to keep *Client* & *Server* linked
 (and to not having codebases with different purposes together)
 
-When cloning this project just use:
-  `git clone --recurse-submodules https://github.com/luizfonseca/d2d_challenge`
+When cloning this project just use
+- `git clone --recurse-submodules https://github.com/luizfonseca/d2d_challenge`
+
 to get the latest version and the client folder.
 
 ## Setup for the Server
 
 - `npm install`
-- `npm start` in local environment to run with Refresh
+- `npm start` in local environment to run with Refresh/Nodemon
 - `npm test` to see specs for the API
 
 
