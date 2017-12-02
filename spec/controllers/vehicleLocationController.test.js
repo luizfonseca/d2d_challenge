@@ -23,7 +23,7 @@ describe(">> POST /vehicles/:id/locations", () => {
   test('should create a new location record for a given vehicle ID', (done) => {
     Vehicle.findOrCreate({ id: "abc123" }, (err, vehicle, created) => {
 
-      var bodyReq = { "lat": 10.0, "lng": 20.0, "at": "2017-09-01T12:00:00Z" }
+      var bodyReq = { "lat": 52.53, "lng": 13.400, "at": "2017-09-01T12:00:00Z" }
       request(app).post('/vehicles/abc123/locations').send(bodyReq).then((response) => {
         expect(response.statusCode).toBe(204)
         VehicleLocation.count({ vehicle_id: "abc123" }, (err, count) => {
@@ -36,12 +36,12 @@ describe(">> POST /vehicles/:id/locations", () => {
 
 
   test('should say if the location is on boundary or not', (done) => {
-    var bodyReq = { "lat": 22.0, "lng": 20.0, "at": "2017-09-01T12:00:00Z" }
+    var bodyReq = { "lat": 52.53, "lng": 13.395, "at": "2017-09-01T12:00:00Z" }
 
     request(app).post('/vehicles/abc123/locations').send(bodyReq).then((response) => {
       expect(response.statusCode).toBe(204)
       VehicleLocation.findOne({ vehicle_id: "abc123" }, (err, location) => {
-        expect(location.on_boundary).toBe(false)
+        expect(location.on_boundary).toBe(true)
         done()
       })
     })

@@ -19,10 +19,12 @@ let location_registration = (req, res) => {
       // Merging the Body data with the request
       // Using the ES6 "extend" option.
 
+      var calcBoundary = false;
+
       if (req.body.lat && req.body.lng) {
-        var calcBoundary  = isInOfficeBoundary(req.body.lat, req.body.lng)
+        calcBoundary  = isInOfficeBoundary(req.body.lat, req.body.lng)
       }
-      var mergeData     = Object.assign(req.body, { vehicle_id: vehicle.id, on_boundary: (calcBoundary && false) })
+      var mergeData     = Object.assign(req.body, { vehicle_id: vehicle.id, on_boundary: calcBoundary })
 
       // TODO: refactor this part to a more readable way.
       VehicleLocation.create(mergeData, (err, location) => {
