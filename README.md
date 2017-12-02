@@ -4,6 +4,14 @@
 - Client running: https://door2door-viewer.herokuapp.com/
 
 
+
+
+
+![Imgur](https://i.imgur.com/V5jxI7S.jpg)
+
+
+
+
 ## Instructions
 
 This project uses submodules to keep *Client* & *Server* linked
@@ -29,10 +37,24 @@ to get the latest version and the client folder.
 - `yarn test`
 
 
-## Technical choices
+## Docker 
+TBA.
+
+
+## Technical choices/observations
+
+
+## Google Maps
+I already used Leaflet for something similar in the past (http://lab-map.herokuapp.com/#/) using Angular/Postgres JSON/Rails and I felt that I didn't try GMaps for it yet. Both are fine.
+
+## Markers
+I was having a really hard to decide: CIRCLE paths with Polylines or just the arrow to indicate the bearing/direction? I went with the arrow due to it being a little bit cleaner. But I did both (Polyline + Circle is commented) anyway if anybody wants to check it out. By the way, the arrow change their rotation based on the bearing!
+
+## Marker clustering
+We are using the default from Google, so even with thousands of vehicles, markers inside a Cluster are not being rendered thus the performance is still viable. 
 
 ### Node.JS
-It's blazing fast, easy to develop on and works perfectly with this kind of service.
+It's blazing fast, easy to develop on and works perfectly with this kind of service.  
 
 ### MongoDB
 I am always up to use some Postgres, but in this case I felt that the benefits of having
