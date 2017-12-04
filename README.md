@@ -37,8 +37,12 @@ to get the latest version and the client folder.
 - `yarn test`
 
 
-## Docker 
-TBA.
+## Docker
+
+Docker is supported using the following command (main dir):
+- `docker-compose build && docker-compose up -d`
+
+The API will run on `localhost:4000` and the client (the map) will run on `localhost:5000`. Configurations are available through `docker-compose.yml` file if you want to change anything (like the API_URL env variable for instance). 
 
 
 ## Technical choices/observations
@@ -51,7 +55,7 @@ I already used Leaflet for something similar in the past (http://lab-map.herokua
 I was having a really hard time to decide: CIRCLE paths with Polylines or just the arrow to indicate the bearing/direction? I went with the arrow due to it being a little bit cleaner. But I did both (Polyline + Circle is commented) anyway if anybody wants to check it out. By the way, the arrow change their rotation based on the bearing!
 
 ### Marker clustering
-We are using the default from Google, so even with thousands of vehicles, markers inside a Cluster are not being rendered thus the performance is still viable. 
+We are using the default from Google, so even with thousands of vehicles, markers inside a Cluster are not being rendered thus the performance is still viable.
 
 ### Node.JS
 It's blazing fast, easy to develop on and works perfectly with this kind of service.  
