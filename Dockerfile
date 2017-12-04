@@ -3,21 +3,19 @@ FROM node:carbon
 
 
 # Create app directory
-WORKDIR /api
+RUN mkdir -p /src/api
+WORKDIR /src/api
 
 
 
-COPY package*.json ./
+COPY package*.json /src/api
 
 
+
+COPY . /src/api
 
 RUN npm install
 
-
-
-COPY . .
-
-
 EXPOSE 3000
 
-CMD ['npm', 'start']
+CMD ["node", "server.js"]
