@@ -15,7 +15,7 @@ services:
   client:
     build: ./client/
     ports:
-      - "5000:3000"
+      - "5000:9000"
     volumes:
       - .:/app/client
   mongodb:
