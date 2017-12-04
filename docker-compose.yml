@@ -15,9 +15,10 @@ services:
       - mongodb
 
   client:
-    build: ./client/
-    environment:
-      - REACT_APP_API_URL=http://localhost:4000/vehicles
+    build:
+      context: ./client
+      args:
+        - REACT_APP_API_URL=http://localhost:4000/vehicles
     ports:
       - "5000:9000"
     volumes:
