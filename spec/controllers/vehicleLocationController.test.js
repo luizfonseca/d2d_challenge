@@ -74,12 +74,20 @@ describe('.isInOfficeBoundary', () => {
 
   test('Should return true if the Vehicle is close to the office perimeter', () => {
     var lat = 52.52, lng = 13.450;
-
     expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
   })
 
+    test('Should return true if the Vehicle is close to the second office perimeter', () => {
+      var lat = 13.001, lng = 35.001;
+      expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
+    })
 
-  test('should return false if the Vehicle is not on the office perimeter (3,5KM)', () => {
+      test('Should return true if the Vehicle is close to the third office perimeter', () => {
+        var lat = 24.001, lng = 25.001;
+        expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
+      })
+
+  test('should return false if the Vehicle is not any perimeters', () => {
     var lat = 52.45, lng = 13.400;
     expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(false)
   })

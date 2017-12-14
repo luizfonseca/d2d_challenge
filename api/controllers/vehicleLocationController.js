@@ -46,24 +46,31 @@ let location_registration = (req, res) => {
 // vehicle is still on city boundaries.
 // Return true or false
 let isInOfficeBoundary = (vehicleLat, vehicleLng) => {
-  let officeLat = 52.53,
-      officeLng = 13.403;
 
 
 
-  // Return distance in meters
-  let distanceInMeters = geolib.getDistance(
-    { latitude: officeLat, longitude: officeLng },
-    { latitude: vehicleLat, longitude: vehicleLng },
-    100, // accuracy in meters
-  )
 
-  console.log(`Vehicle is at ${distanceInMeters} meters from Office`)
+  // [true, false, false]
+  let boundaries = [
+    { lat: 52.53, lng: 13.403 },
+    { lat: 52.50, lng: 13.228 },
+    { lat: 52.45, lng: 13.391 }
+  ]
+
+  let checkedBoundaries = boundaries.map((bound) => {
+    var distance = geolib.getDistance(
+      { latitude: bound.lat, longitude: bound.lng },
+      { latitude: vehicleLat, longitude: vehicleLng },100)
+
+    return (distance <= 3500)
+
+  })
+
+  //console.log(checkedBoundaries);
 
 
   // Check if its at least 3,5KM or 3500 mts from office position
-  return (distanceInMeters <= 3500)
-
+  return checkedBoundaries.some((el) => { return el } );
 }
 
 
