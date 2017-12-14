@@ -7,8 +7,7 @@
 
 
 
-![Imgur](https://i.imgur.com/V5jxI7S.jpg)
-
+![Imgur](https://i.imgur.com/rtiQ2ca.jpg)
 
 
 
