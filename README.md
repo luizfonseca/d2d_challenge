@@ -7,7 +7,7 @@
 
 
 
-![Imgur](https://i.imgur.com/V5jxI7S.jpg)
+![Imgur](https://i.imgur.com/rtiQ2ca.jpg)
 
 
 
@@ -36,6 +36,16 @@ to get the latest version and the client folder.
 - `yarn start` to start
 - `yarn test`
 
+
+## Coordinates used
+
+```
+const officeCoords = [
+  { lat: 52.53, lng: 13.403 }, // Door 2 Door
+  { lat: 52.50, lng: 13.228 }, // Pichelsberg
+  { lat: 52.45, lng: 13.391 }  // Tempelhof
+]
+```
 
 ## Docker
 
