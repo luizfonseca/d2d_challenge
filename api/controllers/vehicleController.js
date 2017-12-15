@@ -1,41 +1,39 @@
 // See: specs/controllers
-'use strict';
+const mongoose = require('mongoose');
 
+const Vehicle = mongoose.model('Vehicles');
 
-let mongoose = require('mongoose'),
-    Vehicle = mongoose.model('Vehicles');
-
-/**
+/*
 * GET /vehicles
 * Wasnt required, but I found it usefull to know all
 * active Vehicles
 * '-id -__v' => I am excluding fields using the '-' (subtract) symbol.
-**/
-exports.vehicle_list = (req, res) => {
+*/
+exports.vehicleList = (req, res) => {
   Vehicle.find({ status: 'active' }, '-_id -__v')
     .populate({
-        path: 'locations',
-        options: { limit: 10, sort: { 'at': - 1 } },
-        select: 'lat lng on_boundary at -_id'
+      path: 'locations',
+      options: { limit: 10, sort: { at: -1 } },
+      select: 'lat lng on_boundary at -_id',
     })
     .exec((err, vehicles) => {
       if (err) {
-        res.send(err)
+        res.send(err);
       }
-      res.json(vehicles)
-    })
-}
+      res.json(vehicles);
+    });
+};
 
-/**
+/*
 * POST /vehicles
 * This method simply creates OR activate one Vehicle by using his ID
 * And by default, they are all 'active' on creation
 * unless HTTP DELETE is sent
-**/
-exports.vehicle_registration = (req, res) => {
+*/
+exports.vehicleRegistration = (req, res) => {
 
   if (req.body.id === undefined) {
-    return render_body("Missing required fields", res)
+    return renderBody("Missing required fields", res)
 
   } else {
     // Finding existing Vehicles
@@ -44,7 +42,7 @@ exports.vehicle_registration = (req, res) => {
     Vehicle.findOrCreate({ id: req.body.id }, (err, vehicle, created) => {
       if (!created) { vehicle.set({status: 'active'}).save() };
 
-      return render_body(err, res)
+      return renderBody(err, res)
     })
   }
 }
@@ -53,16 +51,16 @@ exports.vehicle_registration = (req, res) => {
 // DELETE /vehicles/:id
 // This function just make one of the Vehicles inactive
 // If found
-exports.vehicle_deletion = (req, res) => {
+exports.vehicleDeletion = (req, res) => {
   Vehicle.findOneAndUpdate({ id: req.params.id }, { status: 'inactive' }, { new: true }, (err, vehicle) => {
-    render_body(err, res)
+    renderBody(err, res)
   })
 
 }
 
 // Just returns 400 or 204 depending on Resources
 // Validation
-let render_body = (err, res) => {
+let renderBody = (err, res) => {
   var status = err ? 400 : 204,
   body = err || null
 

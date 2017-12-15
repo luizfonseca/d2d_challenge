@@ -1,10 +1,10 @@
 // Specs for the Vehicle Location Registration
-let app             = require('../../app');
-let mongoose        = require('mongoose');
-let request         = require('supertest');
-let Vehicle         = require('../../api/models/vehicleModel')
-let VehicleLocation = require('../../api/models/vehicleLocationModel')
-let vehicleCtrl     = require('../../api/controllers/vehicleLocationController');
+const app = require('../../app');
+const mongoose = require('mongoose');
+const request = require('supertest');
+const Vehicle = require('../../api/models/vehicleModel');
+const VehicleLocation = require('../../api/models/vehicleLocationModel');
+const vehicleCtrl = require('../../api/controllers/vehicleLocationController');
 
 mongoose.connect('mongodb://localhost/d2dchallenge_test', { useMongoClient: true });
 
@@ -13,9 +13,6 @@ mongoose.connect('mongodb://localhost/d2dchallenge_test', { useMongoClient: true
 afterAll(async () => {
   await VehicleLocation.remove({})
 });
-
-
-
 
 // POST /vehicles
 describe(">> POST /vehicles/:id/locations", () => {
@@ -72,23 +69,27 @@ describe(">> POST /vehicles/:id/locations", () => {
 
 describe('.isInOfficeBoundary', () => {
 
+  // { lat: 52.53, lng: 13.403 },
+  // { lat: 52.50, lng: 13.228 },
+  // { lat: 52.45, lng: 13.391 }
+
   test('Should return true if the Vehicle is close to the office perimeter', () => {
-    var lat = 52.52, lng = 13.450;
+    let lat = 52.52, lng = 13.450;
     expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
   })
 
-    test('Should return true if the Vehicle is close to the second office perimeter', () => {
-      var lat = 13.001, lng = 35.001;
-      expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
-    })
+  test('Should return true if the Vehicle is close to the second office perimeter', () => {
+    let lat = 52.501, lng = 13.215;
+    expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
+  })
 
-      test('Should return true if the Vehicle is close to the third office perimeter', () => {
-        var lat = 24.001, lng = 25.001;
-        expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
-      })
+  test('Should return true if the Vehicle is close to the third office perimeter', () => {
+    let lat = 52.45, lng = 13.385;
+    expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(true)
+  })
 
   test('should return false if the Vehicle is not any perimeters', () => {
-    var lat = 52.45, lng = 13.400;
+    let lat = 12, lng = 13;
     expect(vehicleCtrl.isInOfficeBoundary(lat, lng)).toBe(false)
   })
 })

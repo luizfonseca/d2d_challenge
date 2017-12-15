@@ -9,7 +9,8 @@ const Schema    = mongoose.Schema;
 const VehicleLocationSchema = new Schema({
   vehicle_id: {
     type: String,
-    required: "You need an Vehicle UUID"
+    required: "You need an Vehicle UUID",
+    index: true,
   },
 
   lat: {
