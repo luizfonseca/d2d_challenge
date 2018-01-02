@@ -1,37 +1,32 @@
-'use strict';
-
-let findOrCreate = require('mongoose-findorcreate')
-let uniqueValidator = require('mongoose-unique-validator')
-let mongoose  = require('mongoose');
-let Schema    = mongoose.Schema;
+const findOrCreate = require('mongoose-findorcreate');
+const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
 
 
-
-let VehicleSchema =  new Schema({
+const VehicleSchema = new mongoose.Schema({
   id: {
     type: String,
-    required: "Missing UUID",
+    required: 'Missing UUID',
     unique: true,
-    dropDups: true
+    dropDups: true,
   },
 
   status: {
     type: [{
       type: String,
-      enum: ['active', 'inactive']
+      enum: ['active', 'inactive'],
     }],
-    default: 'active'
-  }
-},  { toJSON: { virtuals: true } })
+    default: 'active',
+  },
+}, { toJSON: { virtuals: true } });
 
 
 VehicleSchema.virtual('locations', {
   ref: 'VehicleLocations',
   localField: 'id',
   foreignField: 'vehicle_id',
-  justOne: false
-
-})
+  justOne: false,
+});
 
 
 VehicleSchema.plugin(findOrCreate);
